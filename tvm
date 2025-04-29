@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Authored by Michael Hebelka <michael.hebelka@sharpspring.com>
+
+: ${ARCH:=darwin_amd64}
+
+if [[ $# < 1 ]]; then
+    echo "Current version: terraform-$(basename $(readlink $(which terraform)))"
+    echo "Usage: $(basename $0) <version>"
+    exit 1
+fi
+
+mkdir -p ~/.tvm/versions
+
+version=$1
+exe_file=~/.tvm/versions/$version
+
+if [ ! -f $exe_file ]; then
+    curl https://releases.hashicorp.com/terraform/$version/terraform_${version}_${ARCH}.zip | funzip > $exe_file
+    chmod +x $exe_file
+fi
+
+ln -sf $exe_file ~/.tvm/bin/terraform
