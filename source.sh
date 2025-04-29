@@ -8,9 +8,9 @@ _tvm()
 }
 complete -F _tvm tvm
 
-if [ ! -d ~/.tvm/bin ] || [ ! -f ~/.tvm/bin/tvm ] || [ "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/tvm" != "$(readlink -f ~/.tvm/bin/tvm)" ]; then
+if [ ! -d ~/.tvm/bin ] || [ ! -f ~/.tvm/bin/tvm ] || [ "$(cd "$(dirname "${BASH_SOURCE[0]:-${(%):-%x}}")" && pwd)/tvm" != "$(readlink -f ~/.tvm/bin/tvm)" ]; then
     mkdir -p ~/.tvm/bin
-    ln -sf "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/tvm" ~/.tvm/bin/tvm
+    ln -sf "$(cd "$(dirname "${BASH_SOURCE[0]:-${(%):-%x}}")" && pwd)/tvm" ~/.tvm/bin/tvm
 fi
 export PATH="$PATH:~/.tvm/bin"
 
