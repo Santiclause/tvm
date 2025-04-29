@@ -15,7 +15,11 @@ version=$1
 exe_file=~/.tvm/versions/$version
 
 if [ ! -f $exe_file ]; then
-    curl https://releases.hashicorp.com/terraform/$version/terraform_${version}_${ARCH}.zip | funzip > $exe_file
+    tempfile=$(mktemp)
+    trap 'rm -f "$tempfile"' EXIT
+
+    curl https://releases.hashicorp.com/terraform/$version/terraform_${version}_${ARCH}.zip --output $tempfile
+    unzip -p $tempfile terraform > $exe_file
     chmod +x $exe_file
 fi
 
