@@ -12,5 +12,5 @@ if [ ! -d ~/.tvm/bin ] || [ ! -f ~/.tvm/bin/tvm ] || [ "$(cd "$(dirname "${BASH_
     mkdir -p ~/.tvm/bin
     ln -sf "$(cd "$(dirname "${BASH_SOURCE[0]:-${(%):-%x}}")" && pwd)/tvm" ~/.tvm/bin/tvm
 fi
-export PATH="$PATH:~/.tvm/bin"
+export PATH="$PATH:$HOME/.tvm/bin"
 
